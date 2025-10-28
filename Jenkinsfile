@@ -49,7 +49,7 @@ pipeline {
                     repository: 'vprofile-repo',
                     credentialsId: 'nexuslogin',
                     artifacts: [
-                        [artifactId: vproapp,
+                        [artifactId: 'vproapp',
                          classifier: '',
                          file: 'target/rappel-0.0.1-SNAPSHOT.jar',
                          type: 'jar']
