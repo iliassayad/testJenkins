@@ -36,5 +36,26 @@ pipeline {
               }
             }
         }
+        stage('upload artifact to Nexus') {
+            steps {
+                echo 'Uploading to Nexus...'
+
+                nexusArtifactUploader(
+                    nexusVersion: 'nexus3',
+                    protocol: 'http',
+                    nexusUrl: '172.31.42.29:8081',
+                    groupId: 'QA',
+                    version: "${env.BUILD_ID} -${env.BUILD_TIMESTAMP}",
+                    repository: 'vprofile-repo',
+                    credentialsId: 'nexuslogin',
+                    artifacts: [
+                        [artifactId: vproapp,
+                         classifier: '',
+                         file: 'target/rappel-0.0.1-SNAPSHOT.jar',
+                         type: 'jar']
+                    ]
+                )
+            }
+        }
     }
 }
